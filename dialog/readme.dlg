@@ -1,0 +1,40 @@
+This archive should have the following files in it:
+
+PlaylistEditor.h     - header file with definitions
+PlaylistEditor.rc    - resource file
+PlaylistEditor.dlg   - dialog resource file
+PlaylistEditor.ico   - program icon
+
+Any modifications made must stick with the integer values defined in 
+PlaylistEditor.h, else the program will not function, and likely crash.
+
+You can change or create new dialogs for the old and new formats, so long 
+as you keep the same control types matched up with their respective ID's.  
+The layout of them can be changed in any way you want.  
+
+The about window (DLG_SPLASH) must have a rectangle control on it, and if 
+that control isn't big enough for the about text, it will look stupid.  
+Alternately, you can make a tiny rectangle that's not visible, and put 
+whatever else you want on the dialog (bitmaps, icons, whatever), so long as 
+no code is required to display it.
+
+It's important to note, however, that the order of controls is not 
+irrelevant, especially on the settings dialog with the two radio buttons.  
+They must be in the same group in order to function properly, and group 
+membership is defined by the order of the entries in the .DLG file, with 
+respect to those items having a group marker.
+
+To make modifications, you'll need at minimum a resource compiler 
+(typically rc.exe), and you'll also want a dialog editor, unless you want 
+to do a lot of guesswork with a text editor.
+
+Once you've done what you want to do, just bind the new .RES file to the 
+executable with the resource compiler, and you can run it to see whether or 
+not you screwed up.
+
+Something to note is that there are a few invisible controls on the 
+dialogs, to make them compatible with each other.  They must be included in 
+any new dialogs, visible or otherwise, or the program will crash.
+
+If you have any questions, send me e-mail at thanny@home.com, and I'll try 
+to answer them.

@@ -1,0 +1,130 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "PlaylistEditor.h"
+
+DLGTEMPLATE DLG_SPLASH LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", DLG_SPLASH, 144, 56, 220, 100,
+    BEGIN
+        CONTROL         "", RECT_SPLASH, 0, 0, 220, 100, WC_STATIC,
+                        SS_BKGNDRECT | WS_VISIBLE
+    END
+END
+
+DLGTEMPLATE DLG_SETTINGS LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Playlist Editor Settings", DLG_SETTINGS, 160, 37, 200, 130, ,
+            FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "~Interface Choice", GRP_MAINWINCHOICE, 5, 90, 190,
+                        35, DT_MNEMONIC | WS_TABSTOP
+        AUTORADIOBUTTON "File & Chosen ~Side-by-Side (old)", RAD_OLDWIN, 10,
+                        105, 180, 10
+        AUTORADIOBUTTON "File & Chosen ~Top-and-Bottom (new)", RAD_NEWWIN,
+                        10, 95, 180, 10
+        GROUPBOX        "Togg~les", GRP_TOGGLES, 5, 35, 190, 50, DT_MNEMONIC
+        AUTOCHECKBOX    "E~xit confirmation with unsaved changes",
+                        CHK_EXITCONFIRM, 10, 65, 180, 10
+        AUTOCHECKBOX    "Automatically save ~window position",
+                        CHK_AUTOPOSSAVE, 10, 55, 180, 10
+        PUSHBUTTON      "Save ~Position Now", PB_SAVEPOS, 55, 40, 90, 14
+        PUSHBUTTON      "~OK", PB_SETOK, 20, 10, 40, 15
+        PUSHBUTTON      "~Cancel", PB_SETCANCEL, 80, 10, 40, 15
+        PUSHBUTTON      "~Help", PB_SETHELP, 140, 10, 40, 15
+    END
+END
+
+DLGTEMPLATE OLD_MAIN_DIALOG PRELOAD MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "WarpAMP Playlist Editor", OLD_MAIN_DIALOG, 17, -1, 375, 212, ,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_MINBUTTON
+    BEGIN
+        LTEXT           "Driv~e:", TXT_DRIVELABEL, 10, 202, 48, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        CONTROL         "", CB_DRIVELIST, 10, 109, 137, 91, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Direc~tory:", TXT_DIRECTORYLABEL, 10, 176, 45, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_DIRLIST, 10, 114, 137, 61, LS_HORZSCROLL
+        LTEXT           "C~P", TXT_CURRPATH, 9, 171, 15, 5, NOT WS_GROUP |
+                        NOT WS_VISIBLE
+        ENTRYFIELD      "", EF_CURRPATH, 57, 176, 90, 8, ES_READONLY
+        LTEXT           "~Files in directory:", TXT_FILELABEL, 10, 102, 114,
+                        8, DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_FILELIST, 10, 5, 137, 95, LS_HORZSCROLL |
+                        LS_EXTENDEDSEL
+        PUSHBUTTON      "~Add ->", PB_ADD, 160, 85, 55, 15
+        PUSHBUTTON      "<- Re~move", PB_REMOVE, 160, 68, 55, 15
+        GROUPBOX        "Select All", GRP_SELECTALL, 157, 36, 61, 30
+        PUSHBUTTON      "<-", PB_FILESELECTALL, 162, 41, 22, 15
+        PUSHBUTTON      "->", PB_CHOSENSELECTALL, 190, 41, 22, 15
+        GROUPBOX        "Deselect All", GRP_DESELECTALL, 157, 5, 61, 30
+        PUSHBUTTON      "<-", PB_FILEDESELECTALL, 162, 10, 22, 15
+        PUSHBUTTON      "->", PB_CHOSENDESELECTALL, 190, 10, 22, 15
+        LTEXT           "Files ~chosen:", TXT_CHOSENLABEL, 227, 102, 123, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_CHOSENLIST, 227, 5, 138, 95, LS_HORZSCROLL |
+                        LS_EXTENDEDSEL
+        GROUPBOX        "Change Order", GRP_CHANGEORDER, 227, 114, 138, 46
+        PUSHBUTTON      "~Up", PB_MOVEUP, 232, 118, 60, 15
+        PUSHBUTTON      "Do~wn", PB_MOVEDOWN, 300, 118, 60, 15
+        PUSHBUTTON      "~Sort by Name", PB_SORTBYNAME, 232, 136, 128, 15
+        PUSHBUTTON      "~Open", PB_OPEN, 160, 185, 55, 15
+        PUSHBUTTON      "I~nclude", PB_INCLUDE, 160, 162, 55, 15
+        PUSHBUTTON      "Sa~ve", PB_SAVE, 160, 139, 55, 15
+        PUSHBUTTON      "~Help", PB_HELP, 160, 117, 55, 15
+        PUSHBUTTON      "Settin~gs", PB_SETTINGS, 226, 162, 65, 15
+        PUSHBUTTON      "A~bout", PB_ABOUT, 226, 185, 139, 15
+        PUSHBUTTON      "~Quit", PB_QUIT, 300, 162, 65, 15
+    END
+END
+
+DLGTEMPLATE NEW_MAIN_DIALOG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "", NEW_MAIN_DIALOG, 24, -4, 400, 210, , FCF_SYSMENU |
+            FCF_TITLEBAR | FCF_MINBUTTON
+    BEGIN
+        LTEXT           "Driv~e:", TXT_DRIVELABEL, 10, 201, 94, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        CONTROL         "", CB_DRIVELIST, 9, 106, 95, 94, WC_COMBOBOX,
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Direc~tory:", TXT_DIRECTORYLABEL, 10, 181, 94, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_DIRLIST, 10, 110, 93, 70, LS_HORZSCROLL
+        LTEXT           "Current ~Path:", TXT_CURRPATH, 115, 201, 86, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        ENTRYFIELD      "", EF_CURRPATH, 115, 191, 225, 8, ES_READONLY
+        LTEXT           "Files", TXT_FILELABEL, 115, 181, 201, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_FILELIST, 115, 110, 225, 70, LS_MULTIPLESEL |
+                        LS_HORZSCROLL | LS_EXTENDEDSEL
+        PUSHBUTTON      "Select All", PB_FILESELECTALL, 344, 157, 55, 15
+        PUSHBUTTON      "Deselect All", PB_FILEDESELECTALL, 344, 137, 55, 15
+        PUSHBUTTON      "~Add", PB_ADD, 344, 117, 55, 15
+        PUSHBUTTON      "Re~move", PB_REMOVE, 344, 75, 55, 15
+        PUSHBUTTON      "Select All", PB_CHOSENSELECTALL, 344, 55, 55, 15
+        PUSHBUTTON      "Deselect All", PB_CHOSENDESELECTALL, 344, 35, 55,
+                        15
+        LTEXT           "Chosen", TXT_CHOSENLABEL, 115, 100, 201, 8,
+                        DT_MNEMONIC | NOT WS_GROUP
+        LISTBOX         LB_CHOSENLIST, 115, 28, 225, 70, LS_MULTIPLESEL |
+                        LS_HORZSCROLL | LS_EXTENDEDSEL
+        PUSHBUTTON      "~Up", PB_MOVEUP, 233, 10, 40, 14
+        PUSHBUTTON      "Do~wn", PB_MOVEDOWN, 288, 10, 40, 14
+        PUSHBUTTON      "~Sort by Name", PB_SORTBYNAME, 128, 10, 90, 14
+        PUSHBUTTON      "~Open", PB_OPEN, 10, 82, 42, 16
+        PUSHBUTTON      "I~nclude", PB_INCLUDE, 10, 58, 42, 16
+        PUSHBUTTON      "Sa~ve", PB_SAVE, 10, 34, 42, 16
+        PUSHBUTTON      "~Help", PB_HELP, 63, 82, 42, 16
+        PUSHBUTTON      "Settin~gs", PB_SETTINGS, 63, 58, 42, 16
+        PUSHBUTTON      "A~bout", PB_ABOUT, 10, 10, 95, 16
+        PUSHBUTTON      "~Quit", PB_QUIT, 63, 34, 42, 16
+        GROUPBOX        "CO", GRP_CHANGEORDER, 352, 12, 48, 8, NOT WS_GROUP |
+                        NOT WS_VISIBLE
+        GROUPBOX        "SA", GRP_SELECTALL, 352, 196, 48, 7, NOT WS_GROUP |
+                        NOT WS_VISIBLE
+        GROUPBOX        "DSA", GRP_DESELECTALL, 352, 184, 48, 6, NOT
+                        WS_GROUP | NOT WS_VISIBLE
+    END
+END

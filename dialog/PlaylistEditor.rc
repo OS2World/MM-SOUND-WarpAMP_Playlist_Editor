@@ -1,0 +1,9 @@
+#include <os2.h>
+#include "PlaylistEditor.h"
+
+ICON NEW_MAIN_DIALOG PlaylistEditor.ico
+ICON OLD_MAIN_DIALOG PlaylistEditor.ico
+
+DEFAULTICON <PlaylistEditor.ico>
+
+RCINCLUDE PlaylistEditor.DLG
